@@ -30,7 +30,7 @@
         </nav>
         -->
         <div class="employee-grid">
-            @foreach (Person person in Model.Children<Person>())
+            @foreach (var person in Model.Children<MemberTest.Models.Person>())
             {
 
                 <div class="employee-grid__item">

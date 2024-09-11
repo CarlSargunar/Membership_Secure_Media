@@ -1,9 +1,11 @@
+using System.Security.Claims;
 using MemberTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Routing;
+using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
@@ -15,10 +17,12 @@ using Umbraco.Cms.Web.Website.Controllers;
 public class SecureMediaController : SurfaceController
 {
     private readonly IWebHostEnvironment _hostingEnvironment;
+    private readonly IMemberManager _memberManager;
     private readonly IMediaService _mediaService;
 
     public SecureMediaController(
         IWebHostEnvironment hostingEnvironment,
+        IMemberManager memberManager,
         IUmbracoContextAccessor umbracoContextAccessor,
         IUmbracoDatabaseFactory databaseFactory,
         ServiceContext services,
@@ -29,6 +33,7 @@ public class SecureMediaController : SurfaceController
         : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
     {
         _hostingEnvironment = hostingEnvironment;
+        _memberManager = memberManager;
         _mediaService = mediaService;
     }
 
@@ -46,8 +51,6 @@ public class SecureMediaController : SurfaceController
         // URL : umbraco/surface/SecureMedia/getmediabyid?id=1139
         // Full Url : https://localhost:44389/umbraco/surface/SecureMedia/getmediabyid?id=1139
 
-        // TODO : you can check for specific user roles if you want
-
         var media = _mediaService.GetById(id);
         if (media == null)
         {
@@ -55,7 +58,8 @@ public class SecureMediaController : SurfaceController
         }
         
         // Also check the member is in the right member group
-        
+        var userIdentity = HttpContext.User.Identity as ClaimsIdentity;
+        var userId = userIdentity.Claims.FirstOrDefault(x => x.Type == "nameidentifier")?.Value;
 
 
         //
