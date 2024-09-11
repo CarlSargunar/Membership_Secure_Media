@@ -54,6 +54,10 @@ public class SecureMediaController : SurfaceController
             return NotFound();
         }
         
+        // Also check the member is in the right member group
+        
+
+
         //
         var filePath = (string)media.Properties["umbracoFile"].GetValue();
         var mappedFilePath = _hostingEnvironment.MapPathWebRoot(filePath);

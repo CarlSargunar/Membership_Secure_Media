@@ -18,9 +18,28 @@ using Umbraco.Extensions;
 
 namespace MemberTest.Models
 {
+	// Mixin Content Type with alias "umbracoMediaArticle"
+	/// <summary>Article</summary>
+	public partial interface IUmbracoMediaArticle : IPublishedContent
+	{
+		/// <summary>Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		long UmbracoBytes { get; }
+
+		/// <summary>Type</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string UmbracoExtension { get; }
+
+		/// <summary>Article</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string UmbracoFile { get; }
+	}
+
 	/// <summary>Article</summary>
 	[PublishedModel("umbracoMediaArticle")]
-	public partial class UmbracoMediaArticle : PublishedContentModel
+	public partial class UmbracoMediaArticle : PublishedContentModel, IUmbracoMediaArticle
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -54,7 +73,11 @@ namespace MemberTest.Models
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
 		[ImplementPropertyType("umbracoBytes")]
-		public virtual long UmbracoBytes => this.Value<long>(_publishedValueFallback, "umbracoBytes");
+		public virtual long UmbracoBytes => GetUmbracoBytes(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		public static long GetUmbracoBytes(IUmbracoMediaArticle that, IPublishedValueFallback publishedValueFallback) => that.Value<long>(publishedValueFallback, "umbracoBytes");
 
 		///<summary>
 		/// Type
@@ -62,7 +85,12 @@ namespace MemberTest.Models
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("umbracoExtension")]
-		public virtual string UmbracoExtension => this.Value<string>(_publishedValueFallback, "umbracoExtension");
+		public virtual string UmbracoExtension => GetUmbracoExtension(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Type</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetUmbracoExtension(IUmbracoMediaArticle that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "umbracoExtension");
 
 		///<summary>
 		/// Article
@@ -70,6 +98,11 @@ namespace MemberTest.Models
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("umbracoFile")]
-		public virtual string UmbracoFile => this.Value<string>(_publishedValueFallback, "umbracoFile");
+		public virtual string UmbracoFile => GetUmbracoFile(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Article</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.4.1+d72fc5c")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetUmbracoFile(IUmbracoMediaArticle that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "umbracoFile");
 	}
 }
